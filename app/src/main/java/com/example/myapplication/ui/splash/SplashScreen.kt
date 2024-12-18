@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.ui.home.RecetasScreen
+import com.example.myapplication.navigation.RecetasScreen
 import kotlinx.coroutines.delay
 
 
@@ -18,7 +18,7 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
         delay(2000)
-        navController.navigate(RecetasScreen.Home.name)
+        navController.navigate(RecetasScreen.Home.route)
     }
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center) {
