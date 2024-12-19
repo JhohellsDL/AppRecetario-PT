@@ -15,12 +15,12 @@ class DataStoreManager(private val dataStore: DataStore<Preferences>) {
     }
 
     val onboardingCompletedFlow: Flow<Boolean> = dataStore.data
-        .map { preferences -> preferences[ONBOARDING_COMPLETED] ?: false }
+        .map { it[ONBOARDING_COMPLETED] == true }
 
     suspend fun setOnboardingCompleted(completed: Boolean) {
         try {
             dataStore.edit {
-                if (it[ONBOARDING_COMPLETED] != completed) {
+                if (it[ONBOARDING_COMPLETED]?.equals(completed) != true) {
                     it[ONBOARDING_COMPLETED] = completed
                 }
             }
