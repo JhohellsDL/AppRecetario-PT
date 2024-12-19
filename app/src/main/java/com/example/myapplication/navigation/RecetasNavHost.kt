@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.home.HomeScreen
+import com.example.myapplication.ui.onboarding.OnboardingScreen
 import com.example.myapplication.ui.splash.SplashScreen
 
 @Composable
@@ -22,6 +23,9 @@ fun RecetasNavHost(
     ) {
         composable(route = RecetasScreen.Splash.route) {
             SplashScreen(navController = navController)
+        }
+        composable(route = RecetasScreen.Onboarding.route) {
+            OnboardingScreen(navController = navController)
         }
         composable(route = RecetasScreen.Home.route) {
             HomeScreen()
