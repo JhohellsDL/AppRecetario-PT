@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

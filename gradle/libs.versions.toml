@@ -1,6 +1,6 @@
 [versions]
-accompanistPagerIndicators = "0.32.0"
-agp = "8.9.0-alpha05"
+accompanistPager = "0.34.0"
+agp = "8.9.0-alpha06"
 koinAndroid = "4.0.0"
 koinAndroidxCompose = "4.0.0"
 kotlin = "2.0.0"
@@ -16,8 +16,8 @@ datastorePreferences = "1.1.1"
 
 [libraries]
 datastore-preferences = {module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences"}
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPagerIndicators" }
-accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
