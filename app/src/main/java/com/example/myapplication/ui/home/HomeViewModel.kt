@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.model.Receta
@@ -26,20 +27,19 @@ class HomeViewModel(
 
     init {
         loadRecetas()
-        getFavoriteRecipes()
+        //getFavoriteRecipes()
     }
 
     fun getFavoriteRecipes() {
         viewModelScope.launch {
-            getRecetasUseCase.execute().collect {
-                println("jhohells Favorites: $it")
-            }
+
         }
     }
 
     private fun loadRecetas() {
         viewModelScope.launch {
-            recetasUseCase.execute().collect {
+            recetasUseCase.execute().let{
+                Log.d("jhohells", "Fetched Recipes: $it")
                 _recetas.value = it
             }
         }
