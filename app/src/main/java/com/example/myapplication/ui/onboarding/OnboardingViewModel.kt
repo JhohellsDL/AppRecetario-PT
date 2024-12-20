@@ -2,7 +2,7 @@ package com.example.myapplication.ui.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.DataStoreManager
+import com.example.myapplication.data.datastore.DataStoreManager
 import kotlinx.coroutines.launch
 
 class OnboardingViewModel (
