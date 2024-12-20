@@ -28,7 +28,7 @@ fun RecetasNavHost(
             OnboardingScreen(navController = navController)
         }
         composable(route = RecetasScreen.Home.route) {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
     }
 }

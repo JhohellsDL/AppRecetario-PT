@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.data.DataStoreManager
+import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.navigation.RecetasScreen
 import kotlinx.coroutines.delay
 import org.koin.compose.getKoin
