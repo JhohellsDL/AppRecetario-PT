@@ -1,6 +1,12 @@
 package com.example.myapplication.di
 
-import com.example.myapplication.data.DataStoreManager
+import com.example.myapplication.data.datasource.RecetaDataSource
+import com.example.myapplication.data.datastore.DataStoreManager
+import com.example.myapplication.data.repository.RecetaRepository
+import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
+import com.example.myapplication.domain.usecase.GetRecetasUseCase
+import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
+import com.example.myapplication.ui.home.HomeViewModel
 import com.example.myapplication.ui.onboarding.OnboardingViewModel
 import com.example.myapplication.utils.createDataStore
 import org.koin.core.module.dsl.viewModelOf
@@ -10,8 +16,21 @@ val dataStoreModule = module {
     single { DataStoreManager(get()) }
     single { createDataStore(get()) }
 }
-val viewModelModule = module {
-    viewModelOf(::OnboardingViewModel)
+
+val repositoryModule = module {
+    single<RecetaDataSource> { RecetaDataSource() }
+    single { RecetaRepository(get()) }
 }
 
-val appModule = listOf(dataStoreModule, viewModelModule)
+val useCaseModule = module {
+    factory { GetRecetasUseCase(get()) }
+    factory { SaveRecetasFavoritasUseCase(get()) }
+    factory { GetRecetasFavoritasUseCase(get()) }
+}
+
+val viewModelModule = module {
+    viewModelOf(::OnboardingViewModel)
+    viewModelOf(::HomeViewModel)
+}
+
+val appModule = listOf(dataStoreModule, viewModelModule, repositoryModule, useCaseModule)
