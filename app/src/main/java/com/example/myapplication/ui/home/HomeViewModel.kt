@@ -3,9 +3,9 @@ package com.example.myapplication.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.model.Receta
-import com.example.myapplication.data.repository.RecetaRepository
+import com.example.myapplication.data.local.FavoriteRecipe
 import com.example.myapplication.domain.model.RecetaDomain
+import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
 import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val recetasUseCase: GetRecetasUseCase,
     private val saveRecetasUseCase: SaveRecetasFavoritasUseCase,
-    private val getRecetasUseCase: GetRecetasUseCase
+    private val getRecetasUseCase: GetRecetasFavoritasUseCase
 ) : ViewModel() {
 
     private val _recetas = MutableStateFlow<List<RecetaDomain>>(emptyList())
@@ -28,20 +28,39 @@ class HomeViewModel(
     init {
         loadRecetas()
         //getFavoriteRecipes()
-    }
-
-    fun getFavoriteRecipes() {
-        viewModelScope.launch {
-
-        }
+        //saveRecipe()
     }
 
     private fun loadRecetas() {
         viewModelScope.launch {
-            recetasUseCase.execute().let{
+            // Cargar recetas desde el caso de uso
+            recetasUseCase.execute().let {
                 Log.d("jhohells", "Fetched Recipes: $it")
                 _recetas.value = it
             }
+
+            // Obtener recetas favoritas y almacenarlas
+            getRecetasUseCase.execute().collect { favorites ->
+                Log.d("jhohells", "Fetched Favorite Recipes: $favorites")
+            }
+        }
+    }
+
+    fun saveRecipe() {
+        val recipe = FavoriteRecipe(
+            recipeId = 1,
+            title = "Spaghetti Bolognese",
+            shortDescription = "Delicious pasta",
+            description = "A classic Italian dish...",
+            ingredients = listOf("Spaghetti", "Tomato Sauce", "Ground Beef"),
+            steps = listOf("Boil spaghetti", "Cook sauce", "Combine and serve"),
+            duration = 30,
+            difficulty = 2,
+            image = "spaghetti_bolognese.jpg"
+        )
+
+        viewModelScope.launch {
+            saveRecetasUseCase(recipe)
         }
     }
 
@@ -54,7 +73,6 @@ class HomeViewModel(
                 updatedFavorites.add(recipeId)
             }
             _favorites.value = updatedFavorites
-            saveRecetasUseCase.execute(updatedFavorites)
         }
     }
 }

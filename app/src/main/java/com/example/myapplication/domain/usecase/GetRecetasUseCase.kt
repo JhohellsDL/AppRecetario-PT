@@ -1,7 +1,7 @@
 package com.example.myapplication.domain.usecase
 
 import com.example.myapplication.data.model.toDomain
-import com.example.myapplication.data.repository.RecetaRepository
+import com.example.myapplication.domain.repository.RecetaRepository
 import com.example.myapplication.domain.model.RecetaDomain
 
 class GetRecetasUseCase(

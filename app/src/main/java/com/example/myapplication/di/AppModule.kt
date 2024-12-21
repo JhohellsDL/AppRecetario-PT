@@ -1,10 +1,12 @@
 package com.example.myapplication.di
 
 import androidx.room.Room
-import com.example.myapplication.data.datasource.RecetaDataSource
+import com.example.myapplication.data.datasource.RecetaLocalDataSource
+import com.example.myapplication.data.datasource.RecetaRemoteDataSource
 import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.data.local.AppDatabase
-import com.example.myapplication.data.repository.RecetaRepository
+import com.example.myapplication.data.remote.RecetaApi
+import com.example.myapplication.domain.repository.RecetaRepository
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
 import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
@@ -13,6 +15,8 @@ import com.example.myapplication.ui.onboarding.OnboardingViewModel
 import com.example.myapplication.utils.createDataStore
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 val dataStoreModule = module {
     single { DataStoreManager(get()) }
@@ -20,8 +24,9 @@ val dataStoreModule = module {
 }
 
 val repositoryModule = module {
-    single<RecetaDataSource> { RecetaDataSource(get()) }
-    single { RecetaRepository(get()) }
+    single<RecetaLocalDataSource> { RecetaLocalDataSource(get()) }
+    single<RecetaRemoteDataSource> { RecetaRemoteDataSource(get()) }
+    single { RecetaRepository(get(), get()) }
 }
 
 val useCaseModule = module {
@@ -47,4 +52,25 @@ val databaseModule = module {
     single { get<AppDatabase>().favoriteRecipeDao() }
 }
 
-val appModule = listOf(dataStoreModule, viewModelModule, repositoryModule, useCaseModule, databaseModule)
+val networkModule = module {
+    single {
+        Retrofit.Builder()
+            .baseUrl("https://51df8ff3-a1b3-44d8-9155-637c190cff82.mock.pstmn.io/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    single<RecetaApi> {
+        get<Retrofit>().create(RecetaApi::class.java)
+    }
+}
+
+val appModule =
+    listOf(
+        dataStoreModule,
+        viewModelModule,
+        repositoryModule,
+        useCaseModule,
+        databaseModule,
+        networkModule
+    )
