@@ -1,7 +1,9 @@
 package com.example.myapplication.di
 
+import androidx.room.Room
 import com.example.myapplication.data.datasource.RecetaDataSource
 import com.example.myapplication.data.datastore.DataStoreManager
+import com.example.myapplication.data.local.AppDatabase
 import com.example.myapplication.data.repository.RecetaRepository
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
@@ -18,7 +20,7 @@ val dataStoreModule = module {
 }
 
 val repositoryModule = module {
-    single<RecetaDataSource> { RecetaDataSource() }
+    single<RecetaDataSource> { RecetaDataSource(get()) }
     single { RecetaRepository(get()) }
 }
 
@@ -33,4 +35,16 @@ val viewModelModule = module {
     viewModelOf(::HomeViewModel)
 }
 
-val appModule = listOf(dataStoreModule, viewModelModule, repositoryModule, useCaseModule)
+val databaseModule = module {
+    single {
+        Room.databaseBuilder(
+            get(),
+            AppDatabase::class.java,
+            "app_database"
+        ).build()
+    }
+
+    single { get<AppDatabase>().favoriteRecipeDao() }
+}
+
+val appModule = listOf(dataStoreModule, viewModelModule, repositoryModule, useCaseModule, databaseModule)
