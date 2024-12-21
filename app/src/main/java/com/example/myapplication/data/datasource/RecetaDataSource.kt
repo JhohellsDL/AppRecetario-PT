@@ -1,23 +1,19 @@
 package com.example.myapplication.data.datasource
 
+import com.example.myapplication.data.local.FavoriteRecipe
+import com.example.myapplication.data.local.FavoriteRecipeDao
 import com.example.myapplication.data.model.Receta
 import com.example.myapplication.data.remote.RetrofitInstance
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
-class RecetaDataSource {
+class RecetaDataSource(private val dao: FavoriteRecipeDao) {
 
-    private val favoriteRecipes = MutableStateFlow<Set<Int>>(emptySet())
+    fun getFavoriteRecipes(): Flow<List<FavoriteRecipe>> = dao.getFavoriteRecipes()
+
+    suspend fun saveFavoriteRecipe(recipe: FavoriteRecipe) = dao.saveFavoriteRecipe(recipe)
 
     suspend fun fetchRecipes(): List<Receta> {
         return RetrofitInstance.api.getRecetas()
     }
 
-    suspend fun saveFavorites(favorites: Set<Int>) {
-        favoriteRecipes.emit(favorites)
-    }
-
-    fun getFavoriteRecipesFlow(): Flow<Set<Int>> = favoriteRecipes
-
-    fun getCurrentFavorites(): Set<Int> = favoriteRecipes.value
 }

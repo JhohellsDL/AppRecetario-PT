@@ -1,6 +1,7 @@
 package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.datasource.RecetaDataSource
+import com.example.myapplication.data.local.FavoriteRecipe
 import com.example.myapplication.data.model.Receta
 import kotlinx.coroutines.flow.Flow
 
@@ -10,11 +11,8 @@ class RecetaRepository(private val dataSource: RecetaDataSource) {
         return dataSource.fetchRecipes()
     }
 
-    suspend fun saveFavoritesRecetas(favorites: Set<Int>) {
-        dataSource.saveFavorites(favorites)
-    }
+    fun getFavoriteRecipes(): Flow<List<FavoriteRecipe>> = dataSource.getFavoriteRecipes()
 
-    fun getFavoriteRecipesFlow(): Flow<Set<Int>> = dataSource.getFavoriteRecipesFlow()
+    suspend fun saveFavoriteRecipe(recipe: FavoriteRecipe) = dataSource.saveFavoriteRecipe(recipe)
 
-    fun getCurrentFavorites(): Set<Int> = dataSource.getCurrentFavorites()
 }
