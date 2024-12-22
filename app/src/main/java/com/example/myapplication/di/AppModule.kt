@@ -7,10 +7,13 @@ import com.example.myapplication.data.datastore.DataStoreManager
 import com.example.myapplication.data.local.AppDatabase
 import com.example.myapplication.data.remote.RecetaApi
 import com.example.myapplication.domain.repository.RecetaRepository
+import com.example.myapplication.domain.usecase.GetRecetasFavoritasIdsUseCase
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
 import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
+import com.example.myapplication.ui.home.FavoritesViewModel
 import com.example.myapplication.ui.home.HomeViewModel
+import com.example.myapplication.ui.home.RecetasViewModel
 import com.example.myapplication.ui.onboarding.OnboardingViewModel
 import com.example.myapplication.utils.createDataStore
 import org.koin.core.module.dsl.viewModelOf
@@ -33,10 +36,13 @@ val useCaseModule = module {
     factory { GetRecetasUseCase(get()) }
     factory { SaveRecetasFavoritasUseCase(get()) }
     factory { GetRecetasFavoritasUseCase(get()) }
+    factory { GetRecetasFavoritasIdsUseCase(get()) }
 }
 
 val viewModelModule = module {
     viewModelOf(::OnboardingViewModel)
+    viewModelOf(::RecetasViewModel)
+    viewModelOf(::FavoritesViewModel)
     viewModelOf(::HomeViewModel)
 }
 
