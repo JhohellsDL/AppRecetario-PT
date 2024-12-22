@@ -12,6 +12,7 @@ import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
 import com.example.myapplication.domain.usecase.RemoveRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
+import com.example.myapplication.ui.detail.DetailViewModel
 import com.example.myapplication.ui.home.FavoritesViewModel
 import com.example.myapplication.ui.home.HomeViewModel
 import com.example.myapplication.ui.home.RecetasViewModel
@@ -46,6 +47,7 @@ val viewModelModule = module {
     viewModelOf(::RecetasViewModel)
     viewModelOf(::FavoritesViewModel)
     viewModelOf(::HomeViewModel)
+    viewModelOf(::DetailViewModel)
 }
 
 val databaseModule = module {
