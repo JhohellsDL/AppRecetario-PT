@@ -56,7 +56,7 @@ fun RecetasNavHost(
                 arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val recipeId = backStackEntry.arguments?.getInt("recipeId")
-                DetailScreen(navController = navController, recipeId = recipeId)
+                DetailScreen(navController = navController, recipeId = recipeId ?: 0)
             }
 
         }
