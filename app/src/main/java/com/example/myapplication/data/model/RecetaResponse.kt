@@ -3,7 +3,7 @@ package com.example.myapplication.data.model
 import com.example.myapplication.domain.model.RecetaDomain
 import com.google.gson.annotations.SerializedName
 
-data class Receta(
+data class RecetaResponse(
     @SerializedName("id") val id: Int = 0,
     @SerializedName("title") val name: String = "",
     @SerializedName("description") val description: String = "",
@@ -16,11 +16,16 @@ data class Receta(
     @SerializedName("is_favorite") val isFavorite: Boolean = false
 )
 
-fun Receta.toDomain(): RecetaDomain {
+fun RecetaResponse.toDomain(): RecetaDomain {
     return RecetaDomain(
         id = id,
         title = name,
         description = description,
+        shortDescription = shortDescription,
+        ingredients = ingredients,
+        steps = steps,
+        duration = duration,
+        difficulty = difficulty,
         image = image,
         isFavorite = isFavorite
     )

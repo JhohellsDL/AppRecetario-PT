@@ -3,7 +3,7 @@ package com.example.myapplication.domain.repository
 import com.example.myapplication.data.datasource.RecetaLocalDataSource
 import com.example.myapplication.data.datasource.RecetaRemoteDataSource
 import com.example.myapplication.data.local.FavoriteRecipe
-import com.example.myapplication.data.model.Receta
+import com.example.myapplication.data.model.RecetaResponse
 import kotlinx.coroutines.flow.Flow
 
 class RecetaRepository(
@@ -11,7 +11,7 @@ class RecetaRepository(
     private val remoteDataSource: RecetaRemoteDataSource
 ) {
 
-    suspend fun fetchRecipes(): List<Receta> {
+    suspend fun fetchRecipes(): List<RecetaResponse> {
         return remoteDataSource.fetchRecipes()
     }
 
