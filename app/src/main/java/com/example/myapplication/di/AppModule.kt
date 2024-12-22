@@ -10,6 +10,7 @@ import com.example.myapplication.domain.repository.RecetaRepository
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasIdsUseCase
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.GetRecetasUseCase
+import com.example.myapplication.domain.usecase.RemoveRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.SaveRecetasFavoritasUseCase
 import com.example.myapplication.ui.home.FavoritesViewModel
 import com.example.myapplication.ui.home.HomeViewModel
@@ -37,6 +38,7 @@ val useCaseModule = module {
     factory { SaveRecetasFavoritasUseCase(get()) }
     factory { GetRecetasFavoritasUseCase(get()) }
     factory { GetRecetasFavoritasIdsUseCase(get()) }
+    factory { RemoveRecetasFavoritasUseCase(get()) }
 }
 
 val viewModelModule = module {
