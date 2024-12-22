@@ -1,7 +1,6 @@
 package com.example.myapplication.domain.model
 
 import com.example.myapplication.data.local.FavoriteRecipe
-import com.example.myapplication.data.model.RecetaResponse
 
 data class RecetaDomain(
     val id: Int = 0,
