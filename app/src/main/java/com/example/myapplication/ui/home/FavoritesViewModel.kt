@@ -3,8 +3,8 @@ package com.example.myapplication.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.local.FavoriteRecipe
+import com.example.myapplication.domain.mappers.toFavoriteRecipe
 import com.example.myapplication.domain.model.RecetaDomain
-import com.example.myapplication.domain.model.toFavoriteRecipe
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasIdsUseCase
 import com.example.myapplication.domain.usecase.GetRecetasFavoritasUseCase
 import com.example.myapplication.domain.usecase.RemoveRecetasFavoritasUseCase
@@ -20,6 +20,9 @@ class FavoritesViewModel(
     private val getRecetasFavoritasIdsUseCase: GetRecetasFavoritasIdsUseCase,
     private val removeRecetasFavoritasUseCase: RemoveRecetasFavoritasUseCase
 ) : ViewModel() {
+
+    private val _favoritesRecipes = MutableStateFlow<List<FavoriteRecipe>>(emptyList())
+    val favoritesRecipes: StateFlow<List<FavoriteRecipe>> = _favoritesRecipes.asStateFlow()
 
     private val _favorites = MutableStateFlow<Set<Int>>(emptySet())
     val favorites: StateFlow<Set<Int>> = _favorites.asStateFlow()
@@ -54,6 +57,14 @@ class FavoritesViewModel(
         viewModelScope.launch {
             getRecetasFavoritasIdsUseCase.execute().collect {
                 _favorites.value = it.toSet()
+            }
+        }
+    }
+
+    fun loadFavoriteRecipes() {
+        viewModelScope.launch {
+            getRecetasFavoritasUseCase.execute().collect {
+                _favoritesRecipes.value = it
             }
         }
     }
