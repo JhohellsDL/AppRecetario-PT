@@ -14,9 +14,11 @@ import com.example.myapplication.domain.model.RecetaDomain
 fun DetailScreen(
     navController: NavHostController,
     viewModel: DetailViewModel = koinViewModel(),
-    recipeId: Int
+    recipeId: Int,
+    isFavorite: Boolean = false
 ) {
 
+    println("jhohells isFavorite_ $isFavorite")
     LaunchedEffect(recipeId) {
         viewModel.loadRecetaById(recipeId)
     }

@@ -32,7 +32,7 @@ fun FavoritesScreen(
                 isFavorite = false,
                 onFavoriteToggle = { },
                 onClickItem = {
-                    navigateToDetail(navController, receta.id)
+                    navigateToDetail(navController, receta.id, true)
                 }
             )
 

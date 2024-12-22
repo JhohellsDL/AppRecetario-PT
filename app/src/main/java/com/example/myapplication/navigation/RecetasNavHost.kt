@@ -3,7 +3,6 @@ package com.example.myapplication.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -37,7 +36,9 @@ fun RecetasNavHost(
         NavHost(
             navController = navController,
             startDestination = RecetasScreen.Splash.route,
-            modifier = modifier.fillMaxSize().padding(innerPadding)
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
             composable(route = RecetasScreen.Splash.route) {
                 SplashScreen(navController = navController)
@@ -53,10 +54,18 @@ fun RecetasNavHost(
             }
             composable(
                 route = RecetasScreen.Detail.route,
-                arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
+                arguments = listOf(
+                    navArgument("recipeId") { type = NavType.IntType },
+                    navArgument("isFavorite") { type = NavType.BoolType; defaultValue = false }
+                )
             ) { backStackEntry ->
                 val recipeId = backStackEntry.arguments?.getInt("recipeId")
-                DetailScreen(navController = navController, recipeId = recipeId ?: 0)
+                val isFavorite = backStackEntry.arguments?.getBoolean("isFavorite") == true
+                DetailScreen(
+                    navController = navController,
+                    recipeId = recipeId ?: 0,
+                    isFavorite = isFavorite
+                )
             }
 
         }
@@ -69,6 +78,7 @@ fun isBottomNavVisible(navController: NavHostController): Boolean {
     return when (currentBackStackEntry?.destination?.route) {
         RecetasScreen.Home.route,
         RecetasScreen.Favorites.route -> true
+
         else -> false
     }
 }
