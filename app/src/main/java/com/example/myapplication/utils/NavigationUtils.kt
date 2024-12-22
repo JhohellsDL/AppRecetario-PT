@@ -4,5 +4,5 @@ import androidx.navigation.NavController
 import com.example.myapplication.navigation.RecetasScreen
 
 fun navigateToDetail(navController: NavController, recipeId: Int) {
-
+    navController.navigate(RecetasScreen.Detail.createRoute(recipeId))
 }

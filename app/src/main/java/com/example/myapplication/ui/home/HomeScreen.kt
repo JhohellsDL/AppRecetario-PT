@@ -4,11 +4,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.example.myapplication.domain.model.RecetaDomain
-import com.example.myapplication.navigation.RecetasScreen
 import com.example.myapplication.ui.components.RecipeItem
+import com.example.myapplication.utils.navigateToDetail
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -28,7 +27,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = koin
                     viewModel.toggleFavorite(receta.id)
                 },
                 onClickItem = {
-                    navController.navigate("${RecetasScreen.Detail.route}/${receta.id}")
+                    navigateToDetail(navController, receta.id)
                 }
             )
         }

@@ -5,5 +5,7 @@ sealed class RecetasScreen(val route: String) {
     object Onboarding : RecetasScreen("onboarding")
     object Home : RecetasScreen("home")
     object Favorites : RecetasScreen("favorites")
-    object Detail: RecetasScreen("detail/{recipeId}")
+    object Detail : RecetasScreen("detail/{recipeId}") {
+        fun createRoute(recipeId: Int): String = "detail/$recipeId"
+    }
 }
