@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.example.myapplication.domain.model.RecetaDomain
+import com.example.myapplication.navigation.RecetasScreen
 import com.example.myapplication.ui.components.RecipeItem
 import org.koin.androidx.compose.koinViewModel
 
@@ -23,18 +24,13 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = koin
             RecipeItem(
                 recipe = receta,
                 isFavorite = receta.id in favoritos,
-                onFavoriteToggle = { viewModel.toggleFavorite(receta.id) }
+                onFavoriteToggle = {
+                    viewModel.toggleFavorite(receta.id)
+                },
+                onClickItem = {
+                    navController.navigate("${RecetasScreen.Detail.route}/${receta.id}")
+                }
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    RecipeItem(
-        recipe = RecetaDomain(1, "asdfas d"),
-        isFavorite = true,
-        onFavoriteToggle = { }
-    )
 }

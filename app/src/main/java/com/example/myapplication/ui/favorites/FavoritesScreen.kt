@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import com.example.myapplication.data.local.FavoriteRecipe
 import com.example.myapplication.domain.mappers.toDomain
+import com.example.myapplication.navigation.RecetasScreen
 import com.example.myapplication.ui.components.RecipeItem
 import com.example.myapplication.ui.home.FavoritesViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -29,7 +30,10 @@ fun FavoritesScreen(
             RecipeItem(
                 recipe = receta,
                 isFavorite = false,
-                onFavoriteToggle = { }
+                onFavoriteToggle = { },
+                onClickItem = {
+                    navController.navigate("${RecetasScreen.Detail.route}/${receta.id}")
+                }
             )
 
         }
