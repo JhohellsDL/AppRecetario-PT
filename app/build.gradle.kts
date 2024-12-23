@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.androidx.room.rxjava3)
     testImplementation(libs.androidx.room.testing)
 
+    implementation(libs.coil.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
